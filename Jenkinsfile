@@ -4,43 +4,37 @@ pipeline {
     environment {
         DOCKER_HUB_USER = 'san647'
         DOCKER_HUB_REPO = 'webapp'
-        DOCKER_HUB_CREDS = 'docker-hub-credentials'
+        DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
+        AWS_CREDS = credentials('aws-creds') // Jo aapne abhi add kiye
     }
-    
+
     stages {
-        stage('Fix Git Ownership') {
+        stage('Terraform Infrastructure') {
             steps {
-                // Ensuring no permission issues inside the container
-                sh "git config --global --add safe.directory ${WORKSPACE} || true"
-            }
-        }
-        
-        stage('Cleanup & Checkout') {
-            steps {
-                cleanWs()
-                checkout scm
+                dir('terraform') {
+                    // Terraform commands with AWS credentials
+                    withEnv(["AWS_ACCESS_KEY_ID=${AWS_CREDS_USR}", "AWS_SECRET_ACCESS_KEY=${AWS_CREDS_PSW}", "AWS_DEFAULT_REGION=ap-south-1"]) {
+                        sh 'terraform init'
+                        sh 'terraform plan'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
             }
         }
 
         stage('Build & Push Image') {
             steps {
-                // Building the image with a unique tag
-                sh "docker build -t ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:${env.BUILD_ID} ."
-                sh "docker tag ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:${env.BUILD_ID} ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:latest"
+                sh "docker build -t ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:${env.BUILD_NUMBER} ."
+                sh "docker tag ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:${env.BUILD_NUMBER} ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:latest"
                 
-                // Pushing to Docker Hub using stored credentials
-                withCredentials([usernamePassword(credentialsId: "${DOCKER_HUB_CREDS}", passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
-                    sh "docker push ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:${env.BUILD_ID}"
-                    sh "docker push ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:latest"
-                }
+                sh "echo ${DOCKER_HUB_CREDS_PSW} | docker login -u ${DOCKER_HUB_CREDS_USR} --password-stdin"
+                sh "docker push ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}"
+                sh "docker push ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:latest"
             }
         }
 
         stage('Deploy with Docker Compose') {
             steps {
-                // Using Docker Compose to pull the latest image and restart the service
-                // We pass environment variables so the YAML file knows which image to use
                 sh "DOCKER_HUB_USER=${DOCKER_HUB_USER} DOCKER_HUB_REPO=${DOCKER_HUB_REPO} docker-compose pull"
                 sh "DOCKER_HUB_USER=${DOCKER_HUB_USER} DOCKER_HUB_REPO=${DOCKER_HUB_REPO} docker-compose up -d"
             }
