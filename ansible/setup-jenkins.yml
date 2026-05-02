@@ -1,0 +1,46 @@
+---
+- name: Infrastructure Setup - Docker and Jenkins Deployment
+  hosts: jenkins_server
+  become: yes
+  
+  tasks:
+    # 1. Install Docker package from Amazon Linux repositories
+    - name: Ensure Docker is installed on the server
+      dnf:
+        name: docker
+        state: present
+
+    # 2. Start the Docker daemon and set it to launch at boot
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    # 3. Grant ec2-user permission to run docker commands without sudo
+    - name: Add ec2-user to the docker group for non-root access
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+    # 4. Critical fix: Install Python Pip and Docker SDK for Python
+    - name: Install Python Pip and Docker SDK on the remote host
+      shell: |
+        dnf install python3-pip -y
+        pip3 install docker --ignore-installed requests
+      args:
+        warn: false
+
+    # 5. Pull the latest Jenkins LTS image and run it as a container
+    - name: Deploy Jenkins container with persistent volume and exposed ports
+      docker_container:
+        name: jenkins
+        image: jenkins/jenkins:lts
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:8080"   # Jenkins Web UI
+          - "50000:50000" # Jenkins Agent Communication
+        volumes:
+          - jenkins_home:/var/jenkins_home # Persistent storage for Jenkins data
