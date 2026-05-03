@@ -46,6 +46,9 @@ Metrics → Decision → Action
 
 ## ▫️ Architecture Overview
 
+<img width="1536" height="1024" alt="bcacd638-9805-4d6e-b4d8-03d99432be63" src="https://github.com/user-attachments/assets/d11eea74-0618-4c9f-86ca-9b0cc76c5aff" />
+
+
 The system is structured in layered components:
 
 ### Provisioning Layer
@@ -68,7 +71,7 @@ A Python-based engine periodically queries Prometheus and triggers scaling actio
 
 ---
 
-## 👾 Autonomous Scaling Logic
+##  Autonomous Scaling Logic
 
 The decision engine operates as a control loop:
 
@@ -110,7 +113,7 @@ Programming Language: Python
 
 ---
 
-## 🗯️ Key Outcomes
+##  Key Outcomes
 
 - Reduced dependency on manual scaling decisions  
 - End-to-end automated infrastructure lifecycle  
