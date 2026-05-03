@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sovereign-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sovereign-ops
+  template:
+    metadata:
+      labels:
+        app: sovereign-ops
+    spec:
+      containers:
+      - name: sovereign-container
+        image: san647/webapp:latest
+        ports:
+        - containerPort: 8080
