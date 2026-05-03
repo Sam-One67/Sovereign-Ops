@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 5s     
+  evaluation_interval: 5s  
+
+scrape_configs:
+  # 1. Hamare EC2 Server ki health (CPU, RAM, Disk)
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['3.6.36.5:9100']
+
+  # 2. Jenkins ki performance (Builds, Queue, Health)
+  - job_name: 'jenkins'
+    metrics_path: '/prometheus/'
+    static_configs:
+      - targets: ['3.6.36.5:8080']
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
