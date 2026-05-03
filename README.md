@@ -1,4 +1,4 @@
-# 🚀 Sovereign-Ops: Autonomous Cloud Operations Engine
+#  Sovereign-Ops: Autonomous Cloud Operations Engine
 
 ---
 
@@ -12,7 +12,7 @@ It combines infrastructure automation with a lightweight decision engine to simu
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 In typical cloud environments:
 
@@ -44,7 +44,7 @@ Metrics → Decision → Action
 
 ---
 
-## 🏗️ Architecture Overview
+## ▫️ Architecture Overview
 
 The system is structured in layered components:
 
@@ -68,7 +68,7 @@ A Python-based engine periodically queries Prometheus and triggers scaling actio
 
 ---
 
-## 🤖 Autonomous Scaling Logic
+## 👾 Autonomous Scaling Logic
 
 The decision engine operates as a control loop:
 
@@ -80,18 +80,24 @@ This approach is intentionally lightweight and rule-based. While it does not use
 
 ---
 
-## 📁 Project Structure
-
-ai-ops/        # Decision engine (Prometheus queries and scaling logic)  
-terraform/     # AWS infrastructure provisioning  
-ansible/       # Server configuration and setup  
-k8s/           # Kubernetes manifests  
-monitoring/    # Prometheus and Grafana configurations  
-docker/        # Application containerization  
-jenkins/       # CI/CD pipeline definitions  
-
----
-
+## 📂 Repository Structure
+```bash
+├── ai-ops/               # Autonomous decision engine (Python logic)
+├── terraform/            # Infrastructure as Code (AWS Provisioning)
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+├── ansible/              # Configuration management & Server hardening
+├── k8s/                  # Kubernetes manifests
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── hpa.yaml
+├── monitoring/           # Observability stack (Prometheus & Grafana)
+├── Dockerfile            # Application containerization
+├── Jenkinsfile           # CI/CD pipeline automation
+├── docker-compose.yaml   # Local development environment
+└── README.md             # Project documentation
+```
 ## 🛠️ Tech Stack
 
 Cloud: AWS (EC2, VPC, IAM, EBS)  
@@ -104,7 +110,7 @@ Programming Language: Python
 
 ---
 
-## 📈 Key Outcomes
+## 🗯️ Key Outcomes
 
 - Reduced dependency on manual scaling decisions  
 - End-to-end automated infrastructure lifecycle  
@@ -113,7 +119,7 @@ Programming Language: Python
 
 ---
 
-## ⚠️ Limitations and Future Improvements
+## ✨ Limitations and Future Improvements
 
 Current limitations:
 
@@ -141,7 +147,7 @@ This project was built to move beyond basic tool usage and focus on system-level
 
 ## 👤 Author
 
-Sam-One67  
+[Muhammad Ahmed]
 GitHub: https://github.com/Sam-One67  
 
 Open to DevOps and Cloud Engineering opportunities.
