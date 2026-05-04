@@ -49,7 +49,7 @@ Metrics → Decision → Action
 <img width="1536" height="1024" alt="bcacd638-9805-4d6e-b4d8-03d99432be63" src="https://github.com/user-attachments/assets/d11eea74-0618-4c9f-86ca-9b0cc76c5aff" />
 
 
-
+---
 
 The system is structured in layered components:
 
