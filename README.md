@@ -103,7 +103,7 @@ This approach is intentionally lightweight and rule-based. While it does not use
 ├── docker-compose.yaml   # Local development environment
 └── README.md             # Project documentation
 ```
-## 🛠️ Tech Stack
+## Tech Stack
 
 Cloud: AWS (EC2, VPC, IAM, EBS)  
 Infrastructure as Code: Terraform  
