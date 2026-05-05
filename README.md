@@ -2,7 +2,7 @@
 
 ---
 
-## 🧠 Overview
+## Overview
 
 Sovereign-Ops is a hands-on DevOps/AIOps project focused on building a self-managing cloud environment on AWS.
 
@@ -150,9 +150,10 @@ This project was built to move beyond basic tool usage and focus on system-level
 
 ---
 
-## 👤 Author
+## 👨‍💻 Engineering Lead
+**Muhammad Ahmed**  
+*Cloud & DevOps Engineer*  
 
-[Muhammad Ahmed]
-GitHub: https://github.com/Sam-One67  
-
-Open to DevOps and Cloud Engineering opportunities.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](YOUR_LINK_HERE) 
+[![Portfolio](https://img.shields.io/badge/Portfolio-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](YOUR_LINK_HERE) 
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:muhammaad.ahmaad123@gmail.com)
